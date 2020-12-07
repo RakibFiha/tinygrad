@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="tinygradcos">
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>About - tinygrad</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "About";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> tinygrad</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href=".">Home</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href=".">About</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#installation">Installation</a></li>
+    
+
+    <li class="toctree-l2"><a href="#example">Example</a></li>
+    
+
+    <li class="toctree-l2"><a href="#same-example-in-torch">Same example in torch</a></li>
+    
+
+    <li class="toctree-l2"><a href="#neural-networks">Neural networks?</a></li>
+    
+
+    <li class="toctree-l2"><a href="#neural-network-example-from-testtest_mnistpy">Neural network example (from test/test_mnist.py)</a></li>
+    
+
+    <li class="toctree-l2"><a href="#gpu-support">GPU Support?!</a></li>
+    
+
+    <li class="toctree-l2"><a href="#ane-support">ANE Support?!?!</a></li>
+    
+
+    <li class="toctree-l2"><a href="#imagenet-inference">ImageNet inference</a></li>
+    
+
+    <li class="toctree-l2"><a href="#the-promise-of-small">The promise of small</a></li>
+    
+
+    <li class="toctree-l2"><a href="#running-tests">Running tests</a></li>
+    
+
+    <li class="toctree-l2"><a href="#todo">TODO</a></li>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="tinygrad/Installation/">Installation</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">tinygrad</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>About</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/rakibfiha/tinygrad/edit/source/docs/content/index.md"> Edit on blog</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p align="center">
+  <img src="https://raw.githubusercontent.com/geohot/tinygrad/master/docs/logo.png">
+</p>
+
+<hr />
+<p><img alt="Unit Tests" src="https://github.com/geohot/tinygrad/workflows/Unit%20Tests/badge.svg" /></p>
+<p>For something in between a <a href="https://github.com/pytorch/pytorch">pytorch</a> and a <a href="https://github.com/karpathy/micrograd">karpathy/micrograd</a></p>
+<p>This may not be the best deep learning framework, but it is a deep learning framework.</p>
+<p>The Tensor class is a wrapper around a numpy array, except it does Tensor things.</p>
+<p>tinygrad is also a city in Russia.</p>
+<h3 id="installation">Installation</h3>
+<pre><code class="language-bash">pip3 install git+https://github.com/geohot/tinygrad.git --upgrade
+</code></pre>
+<h3 id="example">Example</h3>
+<pre><code class="language-python">from tinygrad.tensor import Tensor
+
+x = Tensor.eye(3)
+y = Tensor([[2.0,0,-2.0]])
+z = y.matmul(x).sum()
+z.backward()
+
+print(x.grad)  # dz/dx
+print(y.grad)  # dz/dy
+</code></pre>
+<h3 id="same-example-in-torch">Same example in torch</h3>
+<pre><code class="language-python">import torch
+
+x = torch.eye(3, requires_grad=True)
+y = torch.tensor([[2.0,0,-2.0]], requires_grad=True)
+z = y.matmul(x).sum()
+z.backward()
+
+print(x.grad)  # dz/dx
+print(y.grad)  # dz/dy
+</code></pre>
+<h3 id="neural-networks">Neural networks?</h3>
+<p>It turns out, a decent autograd tensor library is 90% of what you need for neural networks. Add an optimizer (SGD, RMSprop, and Adam implemented) from tinygrad.optim, write some boilerplate minibatching code, and you have all you need.</p>
+<h3 id="neural-network-example-from-testtest_mnistpy">Neural network example (from test/test_mnist.py)</h3>
+<pre><code class="language-python">from tinygrad.tensor import Tensor
+import tinygrad.optim as optim
+
+class TinyBobNet:
+  def __init__(self):
+    self.l1 = Tensor.uniform(784, 128)
+    self.l2 = Tensor.uniform(128, 10)
+
+  def forward(self, x):
+    return x.dot(self.l1).relu().dot(self.l2).logsoftmax()
+
+model = TinyBobNet()
+optim = optim.SGD([model.l1, model.l2], lr=0.001)
+
+# ... and complete like pytorch, with (x,y) data
+
+out = model.forward(x)
+loss = out.mul(y).mean()
+loss.backward()
+optim.step()
+</code></pre>
+<h3 id="gpu-support">GPU Support?!</h3>
+<p>tinygrad supports GPUs through PyOpenCL.</p>
+<pre><code class="language-python">from tinygrad.tensor import Tensor
+(Tensor.ones(4,4).cuda() + Tensor.ones(4,4).cuda()).cpu()
+</code></pre>
+<h3 id="ane-support">ANE Support?!?!</h3>
+<p>So it doesn't work yet, but see the <code>ane</code> directory for code to use the Apple Neural Engine at a low level.</p>
+<h3 id="imagenet-inference">ImageNet inference</h3>
+<p>Despite being tiny, tinygrad supports the full EfficientNet. Pass in a picture to discover what it is.</p>
+<pre><code class="language-bash">ipython3 examples/efficientnet.py https://upload.wikimedia.org/wikipedia/commons/4/41/Chicken.jpg
+</code></pre>
+<p>Or, if you have a webcam and cv2 installed</p>
+<pre><code class="language-bash">ipython3 examples/efficientnet.py webcam
+</code></pre>
+<p>PROTIP: Set "GPU=1" environment variable if you want this to go faster.</p>
+<p>PROPROTIP: Set "DEBUG=1" environment variable if you want to see why it's slow.</p>
+<h3 id="the-promise-of-small">The promise of small</h3>
+<p>tinygrad will always be below 1000 lines. If it isn't, we will revert commits until tinygrad becomes smaller.</p>
+<h3 id="running-tests">Running tests</h3>
+<pre><code class="language-bash">python3 -m pytest
+</code></pre>
+<h3 id="todo">TODO</h3>
+<ul>
+<li>Train an EfficientNet on ImageNet</li>
+<li>Make broadcasting work on the backward pass (simple please)</li>
+<li>EfficientNet backward pass</li>
+<li>Tensors on GPU (a few more backward)</li>
+<li>Add a language model. BERT?</li>
+<li>Add a detection model. EfficientDet?</li>
+<li>Reduce code</li>
+<li>Increase speed</li>
+<li>Add features</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tinygrad/Installation/" class="btn btn-neutral float-right" title="Installation">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="tinygrad/Installation/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.0.4
+Build Date UTC : 2020-12-07 03:21:56
+-->

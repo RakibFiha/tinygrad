@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Docker Deployment Action - tinygrad</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Docker Deployment Action";
+    var mkdocs_page_input_path = "actions/Docker-Deployment.md";
+    var mkdocs_page_url = "/actions/Docker-Deployment/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> tinygrad</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">About</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../tinygrad/Installation/">Installation</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">tinygrad</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Docker Deployment Action</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/rakibfiha/tinygrad/edit/source/docs/content/actions/Docker-Deployment.md"> Edit on blog</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="docker-deployment-action">Docker Deployment Action</h1>
+<p>A <a href="https://github.com/marketplace/actions/docker-deployment">GitHub Action</a> that supports docker-compose and Docker Swarm deployments.</p>
+<h2 id="examples">Examples</h2>
+<p>Below is a brief examples on how the action can be used:</p>
+<p>```yaml tab="Swarm"
+- name: Deploy to Docker swarm
+  uses: wshihadeh/docker-deployment-action@v1
+  with:
+    remote_docker_host: user@myswarm.com
+    ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+    ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+    deployment_mode: docker-swarm
+    args: my_applicaion</p>
+<pre><code>
+```yaml tab=&quot;Compose&quot;
+- name: Deploy to Docker Host
+  uses: wshihadeh/docker-deployment-action@v1
+  with:
+    remote_docker_host: user@myswarm.com
+    ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+    ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+    deployment_mode: docker-compose
+    args: up -d
+    pre_deployment_command_args: 'bundle exec rake db:migrate'
+    docker_prune: 'true'
+    pull_images_first: 'true'
+</code></pre>
+<p>```yaml tab="Compose with copy"
+- name: Deploy to Docker Host
+  uses: wshihadeh/docker-deployment-action@v1
+  with:
+    remote_docker_host: user@myswarm.com
+    ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+    ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+    deployment_mode: docker-compose
+    copy_stack_file: true
+    deploy_path: /root/my-deployment
+    stack_file_name: docker-compose.yaml
+    keep_files: 5
+    args: up -d
+    docker_prune: 'false'
+    pull_images_first: 'false'</p>
+<pre><code>
+```yaml tab=&quot;Swarm with copy&quot;
+- name: Deploy to Docker swarm
+  uses: wshihadeh/docker-deployment-action@v1
+  with:
+    remote_docker_host: user@myswarm.com
+    ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+    ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+    deployment_mode: docker-swarm
+    copy_stack_file: true
+    deploy_path: /root/my-deployment
+    stack_file_name: docker-stack.yaml
+    keep_files: 5
+    args: my_applicaion
+</code></pre>
+<h2 id="input-configurations">Input Configurations</h2>
+<p>Below are all of the supported inputs. Some inputs are considered sensitive information and it should be stored as secrets.</p>
+<h3 id="args"><code>args</code></h3>
+<p>Arguments to pass to the deployment command either  <code>docker</code>  or <code>docker-compose</code>. The actions will automatically generate the follwing commands for each of the cases.</p>
+<ul>
+<li><code>docker stack deploy --compose-file $FILE --log-level debug --host $HOST</code></li>
+<li><code>docker-compose -f $INPUT_STACK_FILE_NAME</code></li>
+</ul>
+<h3 id="remote_docker_host"><code>remote_docker_host</code></h3>
+<p>Specify Remote Docker host. The input value must be in the follwing format (user@host)</p>
+<h3 id="ssh_public_key"><code>ssh_public_key</code></h3>
+<p>Remote Docker SSH public key.</p>
+<h3 id="ssh_private_key"><code>ssh_private_key</code></h3>
+<p>SSH private key used to connect to the docker host</p>
+<h3 id="deployment_mode"><code>deployment_mode</code></h3>
+<p>Deployment mode either docker-swarm or docker-compose. Default is docker-compose.</p>
+<h3 id="copy_stack_file"><code>copy_stack_file</code></h3>
+<p>Copy stack file to remote server and deploy from the server. Default is false.</p>
+<h3 id="deploy_path"><code>deploy_path</code></h3>
+<p>The path where the stack files will be copied to. Default ~/docker-deployment.</p>
+<h3 id="stack_file_name"><code>stack_file_name</code></h3>
+<p>Docker stack file used. Default is docker-compose.yaml</p>
+<h3 id="keep_files"><code>keep_files</code></h3>
+<p>Number of the files to be kept on the server. Default is 3.</p>
+<h3 id="docker_prune"><code>docker_prune</code></h3>
+<p>A boolean input to trigger docker prune command.</p>
+<h3 id="pre_deployment_command_args"><code>pre_deployment_command_args</code></h3>
+<p>The args for the pre deploument command. Applicable only for docker-compose.</p>
+<h3 id="pull_images_first"><code>pull_images_first</code></h3>
+<p>Pull docker images before deploying. Applicable only for docker-compose.</p>
+<h2 id="license">License</h2>
+<p>This project is licensed under the MIT license. See the <a href="LICENSE">LICENSE</a> file for details.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>
